@@ -1,10 +1,13 @@
 package br.com.rts.estudos.graphql.schemamappinginspection.utils;
 
 import br.com.rts.estudos.graphql.schemamappinginspection.event.Event;
+import br.com.rts.estudos.graphql.schemamappinginspection.session.Session;
 import net.datafaker.Faker;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class DataLoaderUtil {
@@ -28,6 +31,22 @@ public class DataLoaderUtil {
                 cfpEndDate,
                 faker.address().fullAddress(),
                 faker.internet().url());
+    }
 
+    public static List<Session> getSessions() {
+        var sessions = new ArrayList<Session>();
+
+        for (int count = 0; count < 50; count++) {
+            sessions.add(getSession());
+        }
+        return sessions;
+    }
+
+    public static Session getSession() {
+        Faker faker = new Faker();
+
+        return new Session(faker.number().numberBetween(1, 200),
+                faker.esports().event(),
+                faker.lorem().paragraph());
     }
 }
